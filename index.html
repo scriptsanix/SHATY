@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="shaty">
+
+        <header>
+
+            <h1>✦ SHATY</h1>
+
+            <div class="window-buttons">
+                <button class="minimize">−</button>
+                <button class="close">×</button>
+            </div>
+
+        </header>
+
+        <main class="chat">
+    
+        </main>
+
+        <footer>
+            <textarea placeholder="Digite uma mensagem..."></textarea>
+            <button class="send">Enviar</button>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+<script>
+    document.querySelector(".minimize").addEventListener("click", () => {
+        window.electronAPI.minimizar();
+    });
+
+    document.querySelector(".close").addEventListener("click", () => {
+        window.electronAPI.fechar();
+    });
+</script>
+</body>
+
+</html>
