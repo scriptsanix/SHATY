@@ -67,4 +67,4 @@ A ideia é aplicar APIs e transformar esse projeto em um assistente cada vez mai
 
 Por enquanto, esse é o começo da parada. 🚀
 
-••SHATY — meu primeiro projeto.••
+
