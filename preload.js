@@ -1,41 +1,74 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
-contextBridge.exposeInMainWorld("electronAPI", {
 
-    minimizar: () =>
-        ipcRenderer.send("minimizar"),
+contextBridge.exposeInMainWorld(
+    "electronAPI",
+    {
 
-    fechar: () =>
-        ipcRenderer.send("fechar"),
+        minimizar: () =>
+            ipcRenderer.send("minimizar"),
 
-    verEspaco: () =>
-        ipcRenderer.invoke("ver-espaco"),
 
-    verMemoria: () =>
-        ipcRenderer.invoke("ver-memoria"),
+        fechar: () =>
+            ipcRenderer.send("fechar"),
 
-    verSistema: () =>
-        ipcRenderer.invoke("ver-sistema"),
 
-    verSeguranca: () =>
-        ipcRenderer.invoke("ver-seguranca"),
+        verEspaco: () =>
+            ipcRenderer.invoke("ver-espaco"),
 
-    verLimpeza: () =>
-        ipcRenderer.invoke("ver-limpeza"),
 
-    limparTemporarios: () =>
-        ipcRenderer.invoke("limpar-temporarios"),
+        verMemoria: () =>
+            ipcRenderer.invoke("ver-memoria"),
 
-    verRede: () =>
-        ipcRenderer.invoke("ver-rede"),
 
-    verFirewall: () =>
-        ipcRenderer.invoke("ver-firewall"),
+        verSistema: () =>
+            ipcRenderer.invoke("ver-sistema"),
 
-    verificarVirus: () =>
-        ipcRenderer.invoke("verificar-virus"),
 
-    diagnostico: () =>
-        ipcRenderer.invoke("diagnostico")
+        verSeguranca: () =>
+            ipcRenderer.invoke("ver-seguranca"),
 
-});
+
+        verLimpeza: () =>
+            ipcRenderer.invoke("ver-limpeza"),
+
+
+        limparTemporarios: () =>
+            ipcRenderer.invoke("limpar-temporarios"),
+
+
+        verRede: () =>
+            ipcRenderer.invoke("ver-rede"),
+
+
+        verFirewall: () =>
+            ipcRenderer.invoke("ver-firewall"),
+
+
+        verificarVirus: () =>
+            ipcRenderer.invoke("verificar-virus"),
+
+
+        diagnostico: () =>
+            ipcRenderer.invoke("diagnostico"),
+
+
+        verDataHora: () =>
+            ipcRenderer.invoke("ver-data-hora"),
+
+
+        falarComIA: (mensagem) =>
+            ipcRenderer.invoke(
+                "falar-com-ia",
+                mensagem
+            ),
+
+
+        identificarIntencao: (mensagem) =>
+            ipcRenderer.invoke(
+                "identificar-intencao",
+                mensagem
+            )
+
+    }
+);
