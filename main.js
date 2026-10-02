@@ -262,6 +262,7 @@ const INTENCOES = [
     "REDE",
     "FIREWALL",
     "VIRUS",
+    "DIAGNOSTICO",
     "CONVERSA"
 ];
 
