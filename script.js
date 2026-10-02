@@ -1,3 +1,5 @@
+
+
 const input = document.querySelector("textarea");
 const botaoEnviar = document.querySelector(".send");
 const chat = document.querySelector(".chat");
@@ -33,17 +35,42 @@ function estaNoFinal() {
 /*       ADICIONAR MENSAGEM      */
 /* ============================= */
 
-function adicionarMensagem(texto) {
+function adicionarMensagem(texto, autor = "bot") {
 
     const estavaNoFinal =
         estaNoFinal();
 
-    const novaMensagem =
+
+    const grupo =
+        document.createElement("div");
+
+    grupo.classList.add(
+        "mensagem",
+        autor
+    );
+
+
+    const nome =
+        document.createElement("span");
+
+    nome.classList.add("nome");
+
+    nome.textContent =
+        autor === "usuario"
+            ? "Você"
+            : "SHATY";
+
+
+    const bolha =
         document.createElement("p");
 
-    novaMensagem.textContent = texto;
+    bolha.textContent = texto;
 
-    chat.appendChild(novaMensagem);
+
+    grupo.appendChild(nome);
+    grupo.appendChild(bolha);
+
+    chat.appendChild(grupo);
 
 
     if (estavaNoFinal) {
@@ -52,7 +79,7 @@ function adicionarMensagem(texto) {
     }
 
 
-    return novaMensagem;
+    return grupo;
 }
 
 
@@ -70,9 +97,7 @@ function detectarComandoRapido(mensagem) {
             .trim();
 
 
-    /* ============================= */
-    /*        DATA E HORA             */
-    /* ============================= */
+    /* DATA E HORA */
 
     if (
         comando.includes("data de hoje") ||
@@ -89,9 +114,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*           MEMÓRIA              */
-    /* ============================= */
+    /* MEMÓRIA */
 
     if (
         comando.includes("quanto de ram") ||
@@ -105,9 +128,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*           SISTEMA              */
-    /* ============================= */
+    /* SISTEMA */
 
     if (
         comando.includes("qual meu processador") ||
@@ -121,9 +142,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*             DISCO              */
-    /* ============================= */
+    /* DISCO */
 
     if (
         comando.includes("quanto espaco") ||
@@ -136,9 +155,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*             REDE               */
-    /* ============================= */
+    /* REDE */
 
     if (
         comando.includes("como ta minha internet") ||
@@ -152,9 +169,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*          SEGURANÇA             */
-    /* ============================= */
+    /* SEGURANÇA */
 
     if (
         comando.includes("windows defender") ||
@@ -167,9 +182,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*           FIREWALL             */
-    /* ============================= */
+    /* FIREWALL */
 
     if (
         comando.includes("firewall") ||
@@ -180,9 +193,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*             VÍRUS              */
-    /* ============================= */
+    /* VÍRUS */
 
     if (
         comando.includes("verificar virus") ||
@@ -196,9 +207,7 @@ function detectarComandoRapido(mensagem) {
     }
 
 
-    /* ============================= */
-    /*            LIMPEZA             */
-    /* ============================= */
+    /* LIMPEZA */
 
     if (
         comando.includes("limpar temporarios") ||
@@ -225,7 +234,6 @@ async function executarIntencao(
 ) {
 
     switch (intencao) {
-
 
         case "DATA_HORA":
 
@@ -281,7 +289,6 @@ async function executarIntencao(
                 await window.electronAPI
                     .verLimpeza();
 
-
             return (
                 limpeza +
                 "\n\n" +
@@ -309,23 +316,18 @@ async function enviarMensagem() {
 
 
     if (mensagem === "") {
-
         return;
     }
 
 
-    /* ============================= */
-    /*      MOSTRA MENSAGEM USUÁRIO  */
-    /* ============================= */
+    adicionarMensagem(
+        mensagem,
+        "usuario"
+    );
 
-    adicionarMensagem(mensagem);
 
     input.value = "";
 
-
-    /* ============================= */
-    /*      CONFIRMAÇÃO LIMPEZA      */
-    /* ============================= */
 
     const comando =
         mensagem
@@ -334,7 +336,6 @@ async function enviarMensagem() {
 
 
     if (aguardandoConfirmacao) {
-
 
         if (comando === "sim") {
 
@@ -372,10 +373,6 @@ async function enviarMensagem() {
     }
 
 
-    /* ============================= */
-    /*     PRIMEIRA TENTATIVA        */
-    /* ============================= */
-
     let intencao =
         detectarComandoRapido(
             mensagem
@@ -387,10 +384,6 @@ async function enviarMensagem() {
         intencao
     );
 
-
-    /* ============================= */
-    /*      EXECUTA COMANDO          */
-    /* ============================= */
 
     if (intencao !== null) {
 
@@ -422,7 +415,8 @@ async function enviarMensagem() {
 
     const carregando =
         adicionarMensagem(
-            "..."
+            "...",
+            "bot"
         );
 
 
@@ -438,10 +432,6 @@ async function enviarMensagem() {
         intencao
     );
 
-
-    /* ============================= */
-    /*       EXECUTA FERRAMENTA      */
-    /* ============================= */
 
     const resposta =
         await executarIntencao(
